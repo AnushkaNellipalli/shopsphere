@@ -1,0 +1,18 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Secrets (never upload!)
+.env
+
+# Uploaded / generated files
+backend/media/
+
+# Node
+node_modules/
+dist/
+
+# Editor / OS
+.vscode/
+.DS_Store
