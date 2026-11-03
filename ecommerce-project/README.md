@@ -32,7 +32,7 @@ python -m venv venv
 venv\Scripts\activate          # Windows
 source venv/bin/activate       # Mac / Linux
 
-pip install -r requirements.txt
+pip install -r 
 
 # create your private settings file
 copy .env.example .env         # Windows
