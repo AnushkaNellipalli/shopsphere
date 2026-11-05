@@ -23,7 +23,7 @@ export default function Footer() {
         <div>
           <h4>Contact</h4>
           <p>support@shopsphere.example</p>
-          <p>+91 98765 43210</p>
+          <p>+91 7780444101</p>
           <p>Hyderabad, Telangana, India</p>
         </div>
       </div>
