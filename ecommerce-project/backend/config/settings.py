@@ -24,6 +24,9 @@ RENDER_HOST = os.getenv("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_HOST:
     ALLOWED_HOSTS.append(RENDER_HOST)
 
+# Cloudinary is used only when its variables are set (on Render)
+USE_CLOUDINARY = bool(os.getenv("CLOUDINARY_CLOUD_NAME"))
+
 
 # Application definition
 
@@ -44,6 +47,9 @@ INSTALLED_APPS = [
     'cart',
     'orders',
 ]
+
+if USE_CLOUDINARY:
+    INSTALLED_APPS += ['cloudinary_storage', 'cloudinary']
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -110,13 +116,24 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+# Uploaded images: Cloudinary on Render, local folder on your laptop
 STORAGES = {
     "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "BACKEND": (
+            "cloudinary_storage.storage.MediaCloudinaryStorage"
+            if USE_CLOUDINARY
+            else "django.core.files.storage.FileSystemStorage"
+        ),
     },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
+}
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
+    "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
 }
 
 
